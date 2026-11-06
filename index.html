@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zyntra Certificate Manager</title>
+<meta name="description" content="Analise e prepare PDFs com processamento 100% local.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">Z</span><b>ZYNTRA</b><span class="muted">Certificate Manager</span></div>
+  <div class="chips"><span>Estático</span><span>Client-Side</span><span>Privacy First</span></div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Gerenciador de Certificados PDF</h1>
+    <p>Analise, valide e prepare seus documentos digitais com processamento local.</p>
+  </section>
+
+  <section class="grid2">
+    <article class="card" id="card-ref" data-slot="ref">
+      <h2>Documento de referência</h2>
+      <label class="drop" tabindex="0">
+        <input type="file" accept="application/pdf" hidden>
+        <strong>Arraste o PDF aqui</strong><span class="muted">ou</span><u>selecionar arquivo</u>
+      </label>
+      <dl class="meta"></dl>
+      <p class="err" role="alert"></p>
+      <button class="btn ghost view" disabled>Visualizar</button>
+    </article>
+
+    <article class="card" id="card-dst" data-slot="dst">
+      <h2>Documento de destino</h2>
+      <label class="drop" tabindex="0">
+        <input type="file" accept="application/pdf" hidden>
+        <strong>Arraste o PDF aqui</strong><span class="muted">ou</span><u>selecionar arquivo</u>
+      </label>
+      <dl class="meta"></dl>
+      <p class="err" role="alert"></p>
+      <button class="btn ghost view" disabled>Visualizar</button>
+    </article>
+  </section>
+
+  <section class="card wide" id="cert" hidden>
+    <h2>Análise do certificado</h2>
+    <p class="notice">Esta ferramenta identifica a estrutura da assinatura, lê o certificado incorporado e confere o hash do conteúdo. Ela <b>não</b> valida a assinatura criptográfica, a cadeia de confiança nem a revogação. Para validade jurídica, use Adobe Acrobat ou o validador do ITI (validar.iti.gov.br).</p>
+    <div id="cert-list"></div>
+  </section>
+
+  <section class="card wide" id="compare" hidden>
+    <h2>Comparação dos documentos</h2>
+    <div class="scroll"><table><thead><tr><th>Propriedade</th><th>Referência</th><th>Destino</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="card wide" id="prepare" hidden>
+    <h2>Preparar documento de destino</h2>
+    <p class="muted" id="prep-status"></p>
+    <div class="row">
+      <label>Página <select id="sig-page"></select></label>
+      <label>Posição <select id="sig-pos"><option value="br">Inferior direito</option><option value="bl">Inferior esquerdo</option><option value="tr">Superior direito</option><option value="tl">Superior esquerdo</option></select></label>
+    </div>
+    <div class="row">
+      <button class="btn" id="dl-original">Baixar cópia original</button>
+      <button class="btn primary" id="dl-prepared">Baixar com campo de assinatura vazio</button>
+    </div>
+    <p class="muted small">A cópia original mantém os bytes idênticos. O campo vazio apenas reserva o local; a assinatura deve ser aplicada depois, no Adobe Acrobat ou em outro assinador com a credencial do titular.</p>
+  </section>
+
+  <div class="center"><button class="btn danger" id="clear">Limpar arquivos da memória</button></div>
+</main>
+
+<div class="modal" id="viewer" hidden>
+  <div class="bar">
+    <b id="v-title"></b>
+    <span><button class="btn ghost" id="v-prev">‹</button> <span id="v-pg"></span> <button class="btn ghost" id="v-next">›</button>
+    <button class="btn ghost" id="v-out">−</button><button class="btn ghost" id="v-in">+</button><button class="btn ghost" id="v-close">Fechar</button></span>
+  </div>
+  <div class="canvas-wrap"><canvas id="v-canvas"></canvas></div>
+</div>
+
+<footer>ZYNTRA © 2026 — Construímos tecnologia que gera confiança.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
